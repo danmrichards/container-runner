@@ -1,9 +1,22 @@
 package runtime
 
-import "strings"
+import (
+	"strings"
+)
 
 // Runtime represents a type of container runtime.
 type Runtime string
+
+// Set implements flag.Value
+func (r *Runtime) Set(s string) error {
+	*r = Runtime(s)
+	return nil
+}
+
+// String implements flag.Value
+func (r *Runtime) String() string {
+	return string(*r)
+}
 
 const (
 	// Docker is the runtime powered by Docker.

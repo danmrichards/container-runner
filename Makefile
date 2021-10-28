@@ -1,15 +1,15 @@
 GOARCH=amd64
 
 .PHONY: build
-build: build-server build-manager
+build: build-server build-runner
 
 .PHONY: build-server
 build-server:
 	GOOS=linux go build -ldflags="-s -w" -o bin/server-linux-${GOARCH} ./cmd/server/main.go
 
-.PHONY: build-manager
-build-manager:
-	GOOS=linux go build -ldflags="-s -w" -o bin/manager-linux-${GOARCH} ./cmd/manager/main.go
+.PHONY: build-runner
+build-runner:
+	GOOS=linux go build -ldflags="-s -w" -o bin/runner-linux-${GOARCH} ./cmd/runner/main.go
 
 .PHONY: lint
 lint:
@@ -23,3 +23,10 @@ test:
 deps:
 	go mod verify && \
 	go mod tidy
+
+.PHONY: clean
+clean:
+	rm -rf rootfs.tar
+
+rootfs.tar: clean
+	./rootfs.sh

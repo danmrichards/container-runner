@@ -85,4 +85,5 @@ $RECYCLE.BIN/
 
 data
 bin
-manager/output
+rootfs
+rootfs.tar
