@@ -34,9 +34,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if err = r.Run(context.Background(), workloadDir, cmd); err != nil {
+	cid, err := r.Run(context.Background(), workloadDir, cmd)
+	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println("container running via", runtimeFlag)
+	fmt.Printf("container running with ID %q via %s\n", cid, runtimeFlag)
 }

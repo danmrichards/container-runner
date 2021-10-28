@@ -26,12 +26,12 @@ type Docker struct {
 }
 
 // Run implements containerRuntime.Runner.
-func (d *Docker) Run(ctx context.Context, workloadDir, cmd string) error {
+func (d *Docker) Run(ctx context.Context, workloadDir, cmd string) (string, error) {
 	imgRef := uuid.NewString()
 
 	f, err := os.Open(rootFS)
 	if err != nil {
-		return fmt.Errorf("open rootfs: %w", err)
+		return "", fmt.Errorf("open rootfs: %w", err)
 	}
 
 	// Import an image from the local guest filesystem.
@@ -44,7 +44,7 @@ func (d *Docker) Run(ctx context.Context, workloadDir, cmd string) error {
 		imgRef,
 		types.ImageImportOptions{},
 	); err != nil {
-		return fmt.Errorf("import image: %w", err)
+		return "", fmt.Errorf("import image: %w", err)
 	}
 
 	// Create the container with the working directory mounted from the host.
@@ -55,6 +55,7 @@ func (d *Docker) Run(ctx context.Context, workloadDir, cmd string) error {
 			Cmd:   strslice.StrSlice{cmd},
 		},
 		&container.HostConfig{
+			NetworkMode: "host",
 			Mounts: []mount.Mount{
 				{
 					Type:   mount.TypeBind,
@@ -68,14 +69,14 @@ func (d *Docker) Run(ctx context.Context, workloadDir, cmd string) error {
 		"",
 	)
 	if err != nil {
-		return fmt.Errorf("create container: %w", err)
+		return "", fmt.Errorf("create container: %w", err)
 	}
 
 	if err = d.client.ContainerStart(ctx, resp.ID, types.ContainerStartOptions{}); err != nil {
-		return fmt.Errorf("start container: %w", err)
+		return "", fmt.Errorf("start container: %w", err)
 	}
 
-	return nil
+	return resp.ID, nil
 }
 
 // New returns an instantiated container runtime for Docker.
