@@ -27,3 +27,25 @@ require (
 	google.golang.org/grpc v1.41.0 // indirect
 	google.golang.org/protobuf v1.26.0 // indirect
 )
+
+require (
+	github.com/Microsoft/hcsshim v0.8.21 // indirect
+	github.com/bits-and-blooms/bitset v1.2.0 // indirect
+	github.com/containerd/cgroups v1.0.1 // indirect
+	github.com/containerd/continuity v0.1.0 // indirect
+	github.com/containerd/fifo v1.0.0 // indirect
+	github.com/containerd/ttrpc v1.0.2 // indirect
+	github.com/containerd/typeurl v1.0.2 // indirect
+	github.com/docker/go-events v0.0.0-20190806004212-e31b211e4f1c // indirect
+	github.com/gogo/googleapis v1.4.0 // indirect
+	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
+	github.com/klauspost/compress v1.11.13 // indirect
+	github.com/moby/locker v1.0.1 // indirect
+	github.com/moby/sys/mountinfo v0.4.1 // indirect
+	github.com/opencontainers/runc v1.0.2 // indirect
+	github.com/opencontainers/runtime-spec v1.0.3-0.20210326190908-1c3f411f0417 // indirect
+	github.com/opencontainers/selinux v1.8.2 // indirect
+	go.opencensus.io v0.22.3 // indirect
+	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a // indirect
+	golang.org/x/text v0.3.4 // indirect
+)
